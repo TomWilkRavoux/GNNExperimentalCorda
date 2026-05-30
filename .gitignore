@@ -1,0 +1,22 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Dataset (téléchargé automatiquement par PyTorch Geometric)
+data/
+
+# Session Marimo (état temporaire)
+__marimo__/
+
+# Librairies JS générées par pyvis
+lib/
+
+# Rapports HTML générés
+graphReport/

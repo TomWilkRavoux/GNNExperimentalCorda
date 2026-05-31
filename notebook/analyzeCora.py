@@ -13,7 +13,15 @@ def _():
     from sklearn.metrics import classification_report, confusion_matrix
     import seaborn as sns
 
-    return Planetoid, classification_report, confusion_matrix, mo, plt, sns, torch
+    return (
+        Planetoid,
+        classification_report,
+        confusion_matrix,
+        mo,
+        plt,
+        sns,
+        torch,
+    )
 
 
 @app.cell(hide_code=True)
@@ -152,6 +160,12 @@ def _(F, GCN, data, dataset, torch):
     return dataTest, history, modelTest
 
 
+@app.cell
+def _():
+    # torch.save(modelTest.state_dict(), "./models/gcn_cora.pth")
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -190,7 +204,16 @@ def _(mo):
 
 
 @app.cell
-def _(classes, classification_report, confusion_matrix, dataTest, modelTest, plt, sns, torch):
+def _(
+    classes,
+    classification_report,
+    confusion_matrix,
+    dataTest,
+    modelTest,
+    plt,
+    sns,
+    torch,
+):
     modelTest.eval()
     with torch.no_grad():
         _out = modelTest(dataTest.x, dataTest.edge_index)
@@ -302,6 +325,12 @@ def _(F, GAT, data, dataset, torch):
     return dataGAT, historyGAT, modelTrainGAT
 
 
+@app.cell
+def _():
+    # torch.save(modelTrainGAT.state_dict(), "./models/gat_cora.pth")
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -340,7 +369,16 @@ def _(mo):
 
 
 @app.cell
-def _(classes, classification_report, confusion_matrix, dataGAT, modelTrainGAT, plt, sns, torch):
+def _(
+    classes,
+    classification_report,
+    confusion_matrix,
+    dataGAT,
+    modelTrainGAT,
+    plt,
+    sns,
+    torch,
+):
     modelTrainGAT.eval()
     with torch.no_grad():
         _out = modelTrainGAT(dataGAT.x, dataGAT.edge_index)
@@ -399,7 +437,7 @@ def _(F, GraphSAGE, data, dataset, torch):
     modelTrainSAGE = GraphSAGE(dataset.num_features, dataset.num_classes).to(deviceSAGE)
     dataSAGE = data.to(deviceSAGE)
 
-    _optimizerSAGE = torch.optim.Adam(modelTrainSAGE.parameters(), lr=0.01, weight_decay=5e-3)
+    _optimizerSAGE = torch.optim.Adam(modelTrainSAGE.parameters(), lr=0.01, weight_decay=5e-4)
     _schedulerSAGE = torch.optim.lr_scheduler.ReduceLROnPlateau(_optimizerSAGE, mode='max', factor=0.5, patience=10)
 
     def _trainSAGE():
@@ -438,7 +476,7 @@ def _(F, GraphSAGE, data, dataset, torch):
             _best_state_sage = {k: v.clone() for k, v in modelTrainSAGE.state_dict().items()}
         else:
             _patience_counter_sage += 1
-            if _patience_counter_sage >= 30:
+            if _patience_counter_sage >= 100:
                 print(f"Early stopping epoch {_epochSAGE}")
                 break
         if _epochSAGE % 20 == 0:
@@ -449,6 +487,17 @@ def _(F, GraphSAGE, data, dataset, torch):
     _test_accSAGE = _evaluateSAGE(dataSAGE.test_mask)
     print(f"\nAccuracy GraphSAGE sur le test set : {_test_accSAGE:.4f}")
     return dataSAGE, historySAGE, modelTrainSAGE
+
+
+@app.cell
+def _():
+    # torch.save(modelTrainSAGE.state_dict(), "./models/sage_cora.pth")
+    return
+
+
+@app.cell
+def _():
+    return
 
 
 @app.cell(hide_code=True)
@@ -489,7 +538,16 @@ def _(mo):
 
 
 @app.cell
-def _(classes, classification_report, confusion_matrix, dataSAGE, modelTrainSAGE, plt, sns, torch):
+def _(
+    classes,
+    classification_report,
+    confusion_matrix,
+    dataSAGE,
+    modelTrainSAGE,
+    plt,
+    sns,
+    torch,
+):
     modelTrainSAGE.eval()
     with torch.no_grad():
         _out = modelTrainSAGE(dataSAGE.x, dataSAGE.edge_index)
@@ -604,6 +662,12 @@ def _(F, GCN3, data, dataset, torch):
     return dataGCN3, historyGCN3, modelTrainGCN3
 
 
+@app.cell
+def _():
+    # torch.save(modelTrainGCN3.state_dict(), "./models/gcn3_cora.pth")
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -642,7 +706,16 @@ def _(mo):
 
 
 @app.cell
-def _(classes, classification_report, confusion_matrix, dataGCN3, modelTrainGCN3, plt, sns, torch):
+def _(
+    classes,
+    classification_report,
+    confusion_matrix,
+    dataGCN3,
+    modelTrainGCN3,
+    plt,
+    sns,
+    torch,
+):
     modelTrainGCN3.eval()
     with torch.no_grad():
         _out = modelTrainGCN3(dataGCN3.x, dataGCN3.edge_index)
@@ -729,6 +802,11 @@ def _(classes, data):
     ''')
 
     _net.show("cora_full.html")
+    return
+
+
+@app.cell
+def _():
     return
 
 

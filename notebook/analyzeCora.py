@@ -166,6 +166,30 @@ def _():
     return
 
 
+@app.cell
+def _(os, torch):
+    def save_checkpoint(model, model_name, accuracy, config):
+        os.makedirs("models", exist_ok=True)
+        checkpoint = {
+            "model_state_dict": model.state_dict(),
+            "model_name": model_name,
+            "accuracy": accuracy,
+            "config": config,   # ex: {"hidden": 64, "lr": 0.005, "dropout": 0.5}
+        }
+        path = f"models/{model_name}_acc{accuracy:.4f}.pth"
+        torch.save(checkpoint, path)
+        print(f"Modèle sauvegardé : {path}")
+        return path
+
+    return (save_checkpoint,)
+
+
+@app.cell
+def _(modelTest, save_checkpoint):
+    save_checkpoint(modelTest, "gcn", _test_acc, {"hidden": 64, "lr": 0.005})
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""

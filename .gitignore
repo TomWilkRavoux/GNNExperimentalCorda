@@ -20,3 +20,8 @@ lib/
 
 # Rapports HTML générés
 graphReport/
+*.html
+
+# models
+models/
+*.pth

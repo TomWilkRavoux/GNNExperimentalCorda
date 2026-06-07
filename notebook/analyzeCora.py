@@ -161,8 +161,8 @@ def _(F, GCN, data, dataset, torch):
 
 
 @app.cell
-def _():
-    # torch.save(modelTest.state_dict(), "./models/gcn_cora.pth")
+def _(modelTest, torch):
+    torch.save(modelTest.state_dict(), "./models/gcn_cora.pth")
     return
 
 
@@ -687,8 +687,8 @@ def _(F, GCN3, data, dataset, torch):
 
 
 @app.cell
-def _():
-    # torch.save(modelTrainGCN3.state_dict(), "./models/gcn3_cora.pth")
+def _(modelTrainGCN3, torch):
+    torch.save(modelTrainGCN3.state_dict(), "./models/gcn3_cora.pth")
     return
 
 

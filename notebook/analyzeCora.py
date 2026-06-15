@@ -161,32 +161,31 @@ def _(F, GCN, data, dataset, torch):
 
 
 @app.cell
-def _(modelTest, torch):
-    torch.save(modelTest.state_dict(), "./models/gcn_cora.pth")
+def _():
+    # torch(modelTest.state_dict(), "./models/gcn_cora.pth")
     return
 
 
 @app.cell
-def _(os, torch):
-    def save_checkpoint(model, model_name, accuracy, config):
-        os.makedirs("models", exist_ok=True)
-        checkpoint = {
-            "model_state_dict": model.state_dict(),
-            "model_name": model_name,
-            "accuracy": accuracy,
-            "config": config,   # ex: {"hidden": 64, "lr": 0.005, "dropout": 0.5}
-        }
-        path = f"models/{model_name}_acc{accuracy:.4f}.pth"
-        torch.save(checkpoint, path)
-        print(f"Modèle sauvegardé : {path}")
-        return path
-
-    return (save_checkpoint,)
+def _():
+    # def save_checkpoint(model, model_name, accuracy, config):
+    #     os.makedirs("models", exist_ok=True)
+    #     checkpoint = {
+    #         "model_state_dict": model.state_dict(),
+    #         "model_name": model_name,
+    #         "accuracy": accuracy,
+    #         "config": config,   # ex: {"hidden": 64, "lr": 0.005, "dropout": 0.5}
+    #     }
+    #     path = f"models/{model_name}_acc{accuracy:.4f}.pth"
+    #     torch(checkpoint, path)
+    #     print(f"Modèle sauvegardé : {path}")
+    #     return path
+    return
 
 
 @app.cell
-def _(modelTest, save_checkpoint):
-    save_checkpoint(modelTest, "gcn", _test_acc, {"hidden": 64, "lr": 0.005})
+def _():
+    # save_checkpoint(modelTest, "gcn", _test_acc, {"hidden": 64, "lr": 0.005})
     return
 
 
@@ -351,7 +350,7 @@ def _(F, GAT, data, dataset, torch):
 
 @app.cell
 def _():
-    # torch.save(modelTrainGAT.state_dict(), "./models/gat_cora.pth")
+    # torch(modelTrainGAT.state_dict(), "./models/gat_cora.pth")
     return
 
 
@@ -515,7 +514,7 @@ def _(F, GraphSAGE, data, dataset, torch):
 
 @app.cell
 def _():
-    # torch.save(modelTrainSAGE.state_dict(), "./models/sage_cora.pth")
+    # torch(modelTrainSAGE.state_dict(), "./models/sage_cora.pth")
     return
 
 
@@ -687,8 +686,8 @@ def _(F, GCN3, data, dataset, torch):
 
 
 @app.cell
-def _(modelTrainGCN3, torch):
-    torch.save(modelTrainGCN3.state_dict(), "./models/gcn3_cora.pth")
+def _():
+    # torch(modelTrainGCN3.state_dict(), "./models/gcn3_cora.pth")
     return
 
 

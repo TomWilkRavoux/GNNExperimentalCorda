@@ -14,8 +14,21 @@ Ce projet compare 4 architectures de Graph Neural Networks sur le dataset Cora (
 | **Activation** | ReLU | ELU | ReLU | ReLU |
 | **Dropout** | 0.5 | 0.6 | 0.5 | 0.5 |
 | **Learning rate** | 0.005 | 0.005 | 0.01 | 0.005 |
-| **Weight decay** | 5e-4 | 5e-4 | 5e-3 | 5e-4 |
-| **Accuracy cible** | ~84-85% | ~85-86% | ~84-85% | ~84-85% |
+| **Weight decay** | 5e-4 | 5e-4 | 5e-4 | 5e-4 |
+| **Early stopping** | 30 | 30 | 100 | 30 |
+
+## Résultats mesurés (test set, 1000 nœuds)
+
+Chiffres issus de la dernière exécution du notebook (session Marimo) :
+
+| Modèle | Accuracy test | Macro F1 | Weighted F1 |
+|---|---|---|---|
+| **GCN** | **0.806** | 0.80 | 0.81 |
+| GAT | 0.779 | 0.78 | 0.78 |
+| GraphSAGE | 0.790 | 0.79 | 0.79 |
+| **GCN3** | **0.806** | 0.80 | 0.81 |
+
+> ⚠️ Contrairement à ce qu'on attend en théorie, **GAT n'est pas le meilleur ici** : il est même le plus faible. GCN et GCN3 dominent. Sur Cora (graphe homophile, seulement 140 nœuds labellisés), le surcroît de paramètres de GAT se retourne contre lui. Voir l'analyse détaillée dans [`documentation.md`](documentation.md).
 
 ## Forces et faiblesses
 
